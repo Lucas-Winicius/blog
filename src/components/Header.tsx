@@ -3,7 +3,7 @@ import { Separator } from "./ui/separator";
 
 export default function Header() {
   return (
-    <header className="flex justify-between my-2 mx-4 ">
+    <header className="flex justify-between py-2 px-4 border-b border-stone-300">
       <h1 className="text-3xl font-bold">Blog</h1>
 
       <ul className="flex flex-row justify-between space-x-4 items-center font-semibold">
