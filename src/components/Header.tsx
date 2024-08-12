@@ -25,7 +25,7 @@ export default function Header() {
         <a href="#">
           <Linkedin size={20} />
         </a>
-        <Separator orientation="vertical" />
+        <Separator orientation="vertical" className="border-r border-neutral-400" />
         <button className="flex space-x-2 items-center">
           <User size={20} />
           <p className="text-sm font-medium">Sign in</p>

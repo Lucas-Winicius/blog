@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: #e7e8e4;
+}
 
 @layer base {
   :root {
@@ -59,7 +62,6 @@
     --chart-5: 340 75% 55%;
   }
 }
-
 
 @layer base {
   * {

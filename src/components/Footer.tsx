@@ -27,7 +27,7 @@ export default function Footer() {
         </ul>
       </div>
 
-      <Separator />
+      <Separator className="border-b border-neutral-400" />
 
       <div>
         <p className="font-bold text-lg">
