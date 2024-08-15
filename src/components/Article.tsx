@@ -1,6 +1,6 @@
 export default function Article() {
   return (
-    <div className="flex flex-col  space-x-3 rounded-lg bg-stone-50 w-80 overflow-hidden">
+    <div className="flex flex-col space-x-3 rounded-lg bg-stone-50 w-80 overflow-hidden hover:scale-95 delay-100 duration-200">
       <img
         src="https://images.unsplash.com/photo-1723250573601-3cc941920745?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt=""
@@ -15,7 +15,7 @@ export default function Article() {
           repellat odit, maxime nobis beatae placeat, labore sed explicabo totam
           neque. Quasi, quos!
         </p>
-        <p className="text-right text-xs font-bold">Lucas Winicius - 06 ago 2024</p>
+        <p className="text-right text-xs font-bold py-1">Lucas Winicius - 06 ago 2024</p>
       </div>
     </div>
   );
