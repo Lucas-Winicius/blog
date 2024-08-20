@@ -10,19 +10,16 @@ export default function Footer() {
         </div>
         <ul className="flex space-x-3 text-sm font-semibold items-center ">
           <li>
-            <a href="#">Início</a>
+            <a href="/">Início</a>
           </li>
           <li>
-            <a href="#">Artigos</a>
+            <a href="/profile/me">Perfil</a>
           </li>
           <li>
-            <a href="#">Sobre</a>
+            <a href="/about">Sobre</a>
           </li>
           <li>
-            <a href="#">Seja um contribuidor</a>
-          </li>
-          <li>
-            <a href="#">Ajude o projeto</a>
+            <a href="/contribute">Seja um contribuidor</a>
           </li>
         </ul>
       </div>

@@ -8,13 +8,13 @@ export default function Header() {
 
       <ul className="flex flex-row justify-between space-x-4 items-center font-semibold">
         <li>
-          <a href="#">Início</a>
+          <a href="/">Início</a>
         </li>
         <li>
-          <a href="#">Artigos</a>
+          <a href="/profile/me">Perfil</a>
         </li>
         <li>
-          <a href="#">Sobre</a>
+          <a href="/about">Sobre</a>
         </li>
       </ul>
 
