@@ -19,13 +19,19 @@ export default function Header() {
       </ul>
 
       <div className="flex justify-between items-center space-x-4">
-        <a href="#">
+        <a href="https://github.com/Lucas-Winicius" target="_blank">
           <Github size={20} />
         </a>
-        <a href="#">
+        <a
+          href="https://www.linkedin.com/in/lucas-winicius-souza/"
+          target="_blank"
+        >
           <Linkedin size={20} />
         </a>
-        <Separator orientation="vertical" className="border-r border-neutral-400" />
+        <Separator
+          orientation="vertical"
+          className="border-r border-neutral-400"
+        />
         <button className="flex space-x-2 items-center">
           <User size={20} />
           <p className="text-sm font-medium">Sign in</p>
