@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Providers } from "@/providers/Providers";
+import "dotenv/config";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,11 +23,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={inter.className}>
-        <Header />
-        {children}
-        <Footer />
-      </body>
+      <Providers>
+        <body className={inter.className}>
+          <Header />
+          {children}
+          <Footer />
+        </body>
+      </Providers>
     </html>
   );
 }
