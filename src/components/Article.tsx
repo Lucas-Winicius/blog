@@ -1,22 +1,28 @@
-export default function Article() {
-  return (
-    <div className="flex flex-col space-x-3 rounded-lg bg-stone-50 w-80 overflow-hidden hover:scale-95 delay-100 duration-200">
-      <img
-        src="https://images.unsplash.com/photo-1723250573601-3cc941920745?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt=""
-        width={320}
-      />
+import time from "@/shared/time";
 
-      <div className="space-y-2 py-2 px-4">
-        <h1 className="font-bold text-lg">My post lorem title for my blog</h1>
-        <p className="w-fit">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid
-          assumenda molestiae, doloribus aliquam inventore tempore nesciunt nisi
-          repellat odit, maxime nobis beatae placeat, labore sed explicabo totam
-          neque. Quasi, quos!
+type ArticleProps = {
+  image: string;
+  slug: string;
+  title: string;
+  subtitle: string;
+  createdAt: string;
+};
+
+export default function Article(props: ArticleProps) {
+  return (
+    <a
+      href={`/article/${props.slug}`}
+      className="flex flex-col space-x-3 rounded-lg bg-stone-50 w-80 overflow-hidden hover:scale-95 delay-100 duration-200"
+    >
+      <img src={props.image} alt="" title={props.title} width={320} />
+
+      <div className="h-full space-y-2 py-2 px-4 flex flex-col justify-around">
+        <h1 className="font-bold text-lg">{props.title}</h1>
+        <p className="w-fit flex-grow">{props.subtitle}</p>
+        <p className="text-right text-xs font-bold py-1">
+          {time(props.createdAt)}
         </p>
-        <p className="text-right text-xs font-bold py-1">Lucas Winicius - 06 ago 2024</p>
       </div>
-    </div>
+    </a>
   );
 }
