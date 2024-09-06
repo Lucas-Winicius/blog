@@ -24,8 +24,8 @@ export default function Contributors() {
     <aside className="bg-zinc-100 px-4 py-6 space-y-5 rounded-lg w-72">
       <h1 className="font-bold text-lg">Contribuidores</h1>
 
-      {contributors?.data.map((contributor, id) => (
-        <div className="flex items-center space-x-4" key={contributor.username}>
+      {contributors?.data.map((contributor) => (
+        <a href={`/profile/${contributor.username}`} className="flex items-center space-x-4" key={contributor.username}>
           <div className="bg-stone-300 p-2 rounded-full border border-neutral-400">
             <UserRound size={30} strokeWidth={1} />
           </div>
@@ -33,7 +33,7 @@ export default function Contributors() {
             <p className="font-bold">{contributor.name}</p>
             <p className="text-sm font-medium">{contributor.username}</p>
           </div>
-        </div>
+        </a>
       ))}
     </aside>
   );
