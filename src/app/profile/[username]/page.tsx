@@ -1,20 +1,51 @@
+"use client"
 import Article from "@/components/Article";
+import axios from "@/shared/axios";
+import { useQuery } from "@tanstack/react-query";
 import { UserRound } from "lucide-react";
 
-export default function Profile() {
+type ProfileRequest = {
+  id: number
+  name: string
+  username: string
+  role: string
+  createdAt: string
+  updatedAt: string
+  posts: {
+    image: string
+    title: string
+    subtitle: string
+    slug: string
+    createdAt: string
+  }[]
+}
+
+export default function Profile({ params }: { params: { username: string } }) {
+  const {
+    isPending,
+    isError,
+    data: user,
+    error,
+  } = useQuery({
+    queryKey: ["profile", params.username],
+    queryFn: () => axios.get<ProfileRequest>(`/users/${params.username}`),
+  });
+
+  if (isPending) return <div>Carregando Perfil...</div>;
+
   return (
     <div className="flex flex-row gap-5 m-5">
-      <div className="flex flex-col gap-4 items-center space-x-4 h-screen bg-slate-50 py-9 px-7 rounded-md min-w-fit">
+      <div className="flex flex-col gap-4 items-center space-x-4 h-screen bg-slate-50 py-9 px-7 rounded-md min-w-80 max-w-96">
         <div className="bg-stone-300 p-3 rounded-full border border-neutral-400">
           <UserRound size={150} strokeWidth={1} />
         </div>
         <div>
-          <p className="font-bold text-3xl">Lucas Winicius</p>
-          <p className="text-sm text-center font-medium">@lucas.winicius</p>
+          <p className="font-bold text-center text-3xl">{user?.data.name}</p>
+          <p className="text-sm text-center font-medium">@{user?.data.username}</p>
         </div>
       </div>
       <div className="flex flex-wrap justify-around gap-6 h-fit">
-        <Article />
+        {user?.data.posts.map(post => <Article key={post.slug} {...post} />)}
       </div>
     </div>
   );
