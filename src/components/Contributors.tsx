@@ -3,6 +3,7 @@ import axios from "@/shared/axios";
 import { useQuery } from "@tanstack/react-query";
 import { UserRound } from "lucide-react";
 import ContributorsLoad from "./Contributors.load";
+import ContributorsError from "./Contributors.error";
 
 type ContributorsResponse = {
   name: string;
@@ -20,6 +21,8 @@ export default function Contributors() {
   });
 
   if (isPending) return <ContributorsLoad />;
+
+  if (isError) return <ContributorsError />
 
   return (
     <aside className="bg-zinc-100 px-4 py-6 space-y-5 rounded-lg w-72">
