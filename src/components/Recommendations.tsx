@@ -1,19 +1,26 @@
 "use client";
 import axios from "@/shared/axios";
 import { useQuery } from "@tanstack/react-query";
+import RecommendationsLoad from "./Recommendations.load";
 
 type RecommendationsResponse = {
   title: string;
   slug: string;
-}
+};
 
 export default function Recommendations() {
-  const { isPending, isError, data: recommendations, error } = useQuery({
+  const {
+    isPending,
+    isError,
+    data: recommendations,
+    error,
+  } = useQuery({
     queryKey: ["recommendations"],
-    queryFn: () => axios.get<RecommendationsResponse[]>("/info/recommendations"),
+    queryFn: () =>
+      axios.get<RecommendationsResponse[]>("/info/recommendations"),
   });
 
-  if (isPending) return <div>Carregando Recomendações...</div>;
+  if (isPending) return <RecommendationsLoad />;
 
   return (
     <aside className="bg-zinc-100 px-4 py-6 space-y-5 rounded-lg w-72">

@@ -25,8 +25,6 @@ export default function Home() {
     queryFn: () => axios.get<HomeResponse[]>("/"),
   });
 
-  if (isPending) return <div>Carregando Contribuidores...</div>;
-
   return (
     <div className="m-5 gap-5 flex">
       <aside className="flex flex-col gap-7">
@@ -35,7 +33,7 @@ export default function Home() {
         <Contributors />
       </aside>
       <main className="w-max h-fit flex gap-3 justify-around flex-wrap ">
-        {posts?.data.map((post) => (
+        {!isPending && posts?.data.map((post) => (
           <Article key={post.slug} {...post} />
         ))}
       </main>
