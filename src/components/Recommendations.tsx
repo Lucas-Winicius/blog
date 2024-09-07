@@ -2,6 +2,7 @@
 import axios from "@/shared/axios";
 import { useQuery } from "@tanstack/react-query";
 import RecommendationsLoad from "./Recommendations.load";
+import RecommendationsError from "./Recommendations.error";
 
 type RecommendationsResponse = {
   title: string;
@@ -21,6 +22,8 @@ export default function Recommendations() {
   });
 
   if (isPending) return <RecommendationsLoad />;
+
+  if (isError) return <RecommendationsError />;
 
   return (
     <aside className="bg-zinc-100 px-4 py-6 space-y-5 rounded-lg w-72">
