@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Contributors from "@/components/Contributors";
 import Recommendations from "@/components/Recommendations";
 
@@ -75,6 +75,15 @@ export default function Article({ params }: { params: { id: string } }) {
             <div className="flex gap-4">
               <a
                 className={`flex gap-3 items-center font-semibold border-4 border-black px-4 py-2 ${
+                  !post?.data.nextSlug && "opacity-55"
+                }`}
+                href={post?.data.nextSlug && `/article/${post?.data.nextSlug}`}
+              >
+                <ArrowLeft size={19} strokeWidth={2.5} />
+                <p>Próximo Post</p>
+              </a>
+              <a
+                className={`flex gap-3 items-center font-semibold border-4 border-black px-4 py-2 ${
                   !post?.data.previousSlug && "opacity-55"
                 }`}
                 href={
@@ -82,16 +91,7 @@ export default function Article({ params }: { params: { id: string } }) {
                   `/article/${post?.data.previousSlug}`
                 }
               >
-                <ArrowLeft size={19} strokeWidth={2.5} />
                 <p>Post Anterior</p>
-              </a>
-              <a
-                className={`flex gap-3 items-center font-semibold border-4 border-black px-4 py-2 ${
-                  !post?.data.nextSlug && "opacity-55"
-                }`}
-                href={post?.data.nextSlug && `/article/${post?.data.nextSlug}`}
-              >
-                <p>Próximo Post</p>
                 <ArrowRight size={19} strokeWidth={2.5} />
               </a>
             </div>
