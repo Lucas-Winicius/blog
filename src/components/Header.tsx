@@ -32,10 +32,10 @@ export default function Header() {
           orientation="vertical"
           className="border-r border-neutral-400"
         />
-        <button className="flex space-x-2 items-center">
+        <a href="/register" className="flex space-x-2 items-center">
           <User size={20} />
           <p className="text-sm font-medium">Sign in</p>
-        </button>
+        </a>
       </div>
     </header>
   );
