@@ -1,17 +1,62 @@
+"use client";
 import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "./ui/card";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { TabsContent } from "./ui/tabs";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const createUserSchema = z
+  .object({
+    name: z
+      .string()
+      .min(3, "Seu nome precisa ter no minimo 3 caracteres.")
+      .max(255, "Seu nome pode ter no máximo 255 caracteres."),
+
+    username: z
+      .string()
+      .min(5, "Seu nome de usuario precisa ter 5 caracteres.")
+      .max(255, "Seu nome de usuario precisa ter no máximo 255 caracteres.")
+      .regex(
+        /^[a-zA-Z0-9._-]{1,}$/,
+        "Seu nome de usuario pode apenas conter caracteres alfanumericos ou ., _, -."
+      )
+      .regex(
+        /^[^\W\d_].*/,
+        "Seu nome de usuario não pode iniciar com simbolos."
+      ),
+      
+    password: z.string().min(8, "A senha precisa ter pelo menos 8 caracteres."),
+    passwordvalidate: z.string(),
+  })
+  .refine((data) => data.password === data.passwordvalidate, {
+    message: "As senhas precisam ser iguais.",
+    path: ["passwordvalidate"],
+  });
+
+type CreateUserSchema = z.infer<typeof createUserSchema>;
 
 export default function Signin() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CreateUserSchema>({
+    resolver: zodResolver(createUserSchema),
+  });
+
+  const handleCreateUser = (data: CreateUserSchema) => {
+    console.log(data);
+  };
+
   return (
     <TabsContent value="create">
       <Card>
@@ -22,30 +67,64 @@ export default function Signin() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
-          <div className="space-y-1">
-            <Label htmlFor="name">Nome</Label>
-            <Input id="name" placeholder="Adalberto Junior" />
-          </div>
-          <div className="space-y-1">
-            <Label htmlFor="username">Nome de usuário</Label>
-            <Input id="username" placeholder="a.juninho123" />
-          </div>
-          <div className="space-y-1">
-            <Label htmlFor="password">Senha</Label>
-            <Input id="password" type="password" placeholder="********" />
-          </div>
-          <div className="space-y-1">
-            <Label htmlFor="passwordvalidate">Sabe mesmo sua senha?</Label>
-            <Input
-              id="passwordvalidate"
-              type="password"
-              placeholder="********"
-            />
-          </div>
+          <form
+            onSubmit={handleSubmit(handleCreateUser)}
+            className="flex flex-col gap-4"
+          >
+            <div>
+              <Label htmlFor="name">Nome</Label>
+              <Input
+                id="name"
+                placeholder="Adalberto Junior"
+                className={errors.name && "border border-red-600"}
+                {...register("name")}
+              />
+              <p className="text-xs text-red-600 font-semibold my-2">
+                {errors.name?.message}
+              </p>
+            </div>
+            <div>
+              <Label htmlFor="username">Nome de usuário</Label>
+              <Input
+                id="username"
+                placeholder="a.juninho123"
+                className={errors.username && "border border-red-600"}
+                {...register("username")}
+              />
+              <p className="text-xs text-red-600 font-semibold my-2">
+                {errors.username?.message}
+              </p>
+            </div>
+            <div>
+              <Label htmlFor="password">Senha</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="********"
+                className={errors.password && "border border-red-600"}
+                {...register("password")}
+              />
+              <p className="text-xs text-red-600 font-semibold my-2">
+                {errors.password?.message}
+              </p>
+            </div>
+            <div>
+              <Label htmlFor="passwordvalidate">Sabe mesmo sua senha?</Label>
+              <Input
+                id="passwordvalidate"
+                type="password"
+                placeholder="********"
+                className={errors.passwordvalidate && "border border-red-600"}
+                {...register("passwordvalidate")}
+              />
+              <p className="text-xs text-red-600 font-semibold my-2">
+                {errors.passwordvalidate?.message}
+              </p>
+            </div>
+
+            <Button type="submit">Criar</Button>
+          </form>
         </CardContent>
-        <CardFooter>
-          <Button>Criar</Button>
-        </CardFooter>
       </Card>
     </TabsContent>
   );
