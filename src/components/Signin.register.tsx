@@ -1,89 +1,64 @@
 "use client";
+import { z } from "zod";
 import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "./ui/card";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { TabsContent } from "./ui/tabs";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const createUserSchema = z
-  .object({
-    name: z
-      .string()
-      .min(3, "Seu nome precisa ter no minimo 3 caracteres.")
-      .max(255, "Seu nome pode ter no máximo 255 caracteres."),
+const loginSchema = z.object({
+  username: z
+    .string()
+    .min(5, "Ops, verifique seu nome de usuário e tente novamente.")
+    .max(255, "Ops, verifique seu nome de usuário e tente novamente.")
+    .regex(
+      /^[a-zA-Z0-9._-]{1,}$/,
+      "Ops, verifique seu nome de usuário e tente novamente."
+    )
+    .regex(/^[^\W\d_].*/, "Ops, verifique seu nome de usuário e tente novamente."),
 
-    username: z
-      .string()
-      .min(5, "Seu nome de usuario precisa ter 5 caracteres.")
-      .max(255, "Seu nome de usuario precisa ter no máximo 255 caracteres.")
-      .regex(
-        /^[a-zA-Z0-9._-]{1,}$/,
-        "Seu nome de usuario pode apenas conter caracteres alfanumericos ou ., _, -."
-      )
-      .regex(
-        /^[^\W\d_].*/,
-        "Seu nome de usuario não pode iniciar com simbolos."
-      ),
-      
-    password: z.string().min(8, "A senha precisa ter pelo menos 8 caracteres."),
-    passwordvalidate: z.string(),
-  })
-  .refine((data) => data.password === data.passwordvalidate, {
-    message: "As senhas precisam ser iguais.",
-    path: ["passwordvalidate"],
-  });
+  password: z
+    .string()
+    .min(8, "Algo está errado com sua senha tente novamente.")
+    .max(255, "Algo está errado com sua senha tente novamente."),
+});
 
-type CreateUserSchema = z.infer<typeof createUserSchema>;
+type LoginSchema = z.infer<typeof loginSchema>;
 
-export default function Signin() {
+export default function Signup() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreateUserSchema>({
-    resolver: zodResolver(createUserSchema),
+  } = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
   });
 
-  const handleCreateUser = (data: CreateUserSchema) => {
+  const handleLogin = (data: LoginSchema) => {
     console.log(data);
   };
-
   return (
-    <TabsContent value="create">
+    <TabsContent value="login">
       <Card>
         <CardHeader>
-          <CardTitle>Crie e aproveite!</CardTitle>
-          <CardDescription>
-            Com uma conta você não tera vantagens (por enquanto claro).
-          </CardDescription>
+          <CardTitle>Entrar</CardTitle>
+          <CardDescription>Seja Bem-Vindo(a), unknown!</CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
           <form
-            onSubmit={handleSubmit(handleCreateUser)}
             className="flex flex-col gap-4"
+            onSubmit={handleSubmit(handleLogin)}
           >
-            <div>
-              <Label htmlFor="name">Nome</Label>
-              <Input
-                id="name"
-                placeholder="Adalberto Junior"
-                className={errors.name && "border border-red-600"}
-                {...register("name")}
-              />
-              <p className="text-xs text-red-600 font-semibold my-2">
-                {errors.name?.message}
-              </p>
-            </div>
-            <div>
+            <div className="space-y-1">
               <Label htmlFor="username">Nome de usuário</Label>
               <Input
                 id="username"
@@ -95,12 +70,12 @@ export default function Signin() {
                 {errors.username?.message}
               </p>
             </div>
-            <div>
+            <div className="space-y-1">
               <Label htmlFor="password">Senha</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="********"
+                placeholder="*********"
                 className={errors.password && "border border-red-600"}
                 {...register("password")}
               />
@@ -108,21 +83,9 @@ export default function Signin() {
                 {errors.password?.message}
               </p>
             </div>
-            <div>
-              <Label htmlFor="passwordvalidate">Sabe mesmo sua senha?</Label>
-              <Input
-                id="passwordvalidate"
-                type="password"
-                placeholder="********"
-                className={errors.passwordvalidate && "border border-red-600"}
-                {...register("passwordvalidate")}
-              />
-              <p className="text-xs text-red-600 font-semibold my-2">
-                {errors.passwordvalidate?.message}
-              </p>
-            </div>
-
-            <Button type="submit">Criar</Button>
+            <Button type="submit" variant="default">
+              Entrar
+            </Button>
           </form>
         </CardContent>
       </Card>
