@@ -1,5 +1,6 @@
-import { Github, Linkedin, User } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
 import { Separator } from "./ui/separator";
+import UserHeader from "./User.header";
 
 export default function Header() {
   return (
@@ -32,10 +33,7 @@ export default function Header() {
           orientation="vertical"
           className="border-r border-neutral-400"
         />
-        <a href="/register" className="flex space-x-2 items-center">
-          <User size={20} />
-          <p className="text-sm font-medium">Sign in</p>
-        </a>
+        <UserHeader />
       </div>
     </header>
   );

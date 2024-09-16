@@ -16,7 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "@/shared/axios";
 import { toast } from "sonner";
 import { setCookie } from "cookies-next";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 const loginSchema = z.object({
   username: z
@@ -41,7 +41,7 @@ const loginSchema = z.object({
 type LoginSchema = z.infer<typeof loginSchema>;
 
 export default function Signup() {
-  const router = useRouter()
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -67,11 +67,13 @@ export default function Signup() {
         });
 
         toast(`Seja, Bem-Vindo(a). Você será redirecionado(a) ao início.`, {
-          onAutoClose: () => router.push('/')
+          onAutoClose: () => {
+            router.push("/");
+          },
         });
       })
       .catch(() => {
-        toast("Não conseguimos realizar seu cadastro");
+        toast("Não conseguimos realizar seu login");
       });
   };
   return (
