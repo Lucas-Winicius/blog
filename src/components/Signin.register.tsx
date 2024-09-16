@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "./ui/card";
@@ -14,6 +13,10 @@ import { Label } from "./ui/label";
 import { TabsContent } from "./ui/tabs";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "@/shared/axios";
+import { toast } from "sonner";
+import { setCookie } from "cookies-next";
+import { useRouter } from 'next/navigation'
 
 const loginSchema = z.object({
   username: z
@@ -24,7 +27,10 @@ const loginSchema = z.object({
       /^[a-zA-Z0-9._-]{1,}$/,
       "Ops, verifique seu nome de usuário e tente novamente."
     )
-    .regex(/^[^\W\d_].*/, "Ops, verifique seu nome de usuário e tente novamente."),
+    .regex(
+      /^[^\W\d_].*/,
+      "Ops, verifique seu nome de usuário e tente novamente."
+    ),
 
   password: z
     .string()
@@ -35,6 +41,7 @@ const loginSchema = z.object({
 type LoginSchema = z.infer<typeof loginSchema>;
 
 export default function Signup() {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -44,7 +51,28 @@ export default function Signup() {
   });
 
   const handleLogin = (data: LoginSchema) => {
-    console.log(data);
+    axios
+      .post("/signin", {
+        username: data.username,
+        password: data.password,
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.status !== 200)
+          return toast("Verifique suas informações e tente novamente.");
+
+        setCookie("token", data.data.token, {
+          path: "/",
+          maxAge: 30 * 24 * 60 * 60,
+        });
+
+        toast(`Seja, Bem-Vindo(a). Você será redirecionado(a) ao início.`, {
+          onAutoClose: () => router.push('/')
+        });
+      })
+      .catch(() => {
+        toast("Não conseguimos realizar seu cadastro");
+      });
   };
   return (
     <TabsContent value="login">

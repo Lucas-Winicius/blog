@@ -13,6 +13,8 @@ import { TabsContent } from "./ui/tabs";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "@/shared/axios";
+import { toast } from "sonner";
 
 const createUserSchema = z
   .object({
@@ -34,7 +36,9 @@ const createUserSchema = z
         "Seu nome de usuário não pode iniciar com simbolos."
       ),
 
-    password: z.string().min(8, "Sua senha precisa conter ao menos 8 caracteres."),
+    password: z
+      .string()
+      .min(8, "Sua senha precisa conter ao menos 8 caracteres."),
     passwordvalidate: z
       .string()
       .min(8, "Sua senha precisa conter ao menos 8 caracteres.")
@@ -57,7 +61,21 @@ export default function Signin() {
   });
 
   const handleCreateUser = (data: CreateUserSchema) => {
-    console.log(data);
+    axios
+      .post("/users", {
+        name: data.name,
+        username: data.username,
+        password: data.password,
+      })
+      .then((data) => {
+        if (data.status !== 201)
+          return toast("Verifique suas informações e tente novamente.");
+        
+        toast(`Seja, Bem-Vindo(a). Você já pode fazer login.`);
+      })
+      .catch(() => {
+        toast("Não conseguimos realizar seu cadastro");
+      });
   };
 
   return (
