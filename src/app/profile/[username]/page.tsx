@@ -1,5 +1,6 @@
 "use client"
 import Article from "@/components/Article";
+import ProfileLoad from "@/components/profile.load";
 import axios from "@/shared/axios";
 import { useQuery } from "@tanstack/react-query";
 import { UserRound } from "lucide-react";
@@ -31,7 +32,7 @@ export default function Profile({ params }: { params: { username: string } }) {
     queryFn: () => axios.get<ProfileRequest>(`/users/${params.username}`),
   });
 
-  if (isPending) return <div>Carregando Perfil...</div>;
+  if (isPending) return <ProfileLoad />
 
   return (
     <div className="flex flex-row gap-5 m-5">
