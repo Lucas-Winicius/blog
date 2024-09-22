@@ -4,8 +4,10 @@ import ProfileError from "@/components/Profile.error";
 import ProfileLoad from "@/components/Profile.load";
 import axios from "@/shared/axios";
 import { useQuery } from "@tanstack/react-query";
-import { UserRound } from "lucide-react";
+import { CirclePlus, UserRound } from "lucide-react";
 import { getCookie } from "cookies-next";
+import { Separator } from "@/components/ui/separator";
+import UserHeader from "@/components/User.header";
 
 type ProfileRequest = {
   id: number;
@@ -50,11 +52,17 @@ export default function Profile() {
         <div className="bg-stone-300 p-3 rounded-full border border-neutral-400">
           <UserRound size={150} strokeWidth={1} />
         </div>
-        <div>
+        <div className="flex flex-col gap-4">
           <p className="font-bold text-center text-3xl">{user?.data.name}</p>
           <p className="text-sm text-center font-medium">
             @{user?.data.username}
           </p>
+          <Separator />
+          <a href="/article/new" className="flex gap-3 self-start font-semibold">
+          <CirclePlus />
+          <p>Criar Postagem</p>
+          </a>
+          <Separator />
         </div>
       </div>
       <div className="flex flex-wrap justify-around gap-6 h-fit">
