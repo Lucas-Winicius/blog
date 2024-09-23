@@ -6,7 +6,7 @@ import Search from "@/components/Search";
 export default function Home() {
   return (
     <div className="m-5 gap-5 flex">
-      <aside className="flex flex-col gap-7">
+      <aside className="md:flex hidden flex-col gap-7">
         <Search />
         <Recommendations />
         <Contributors />

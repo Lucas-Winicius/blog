@@ -3,6 +3,7 @@ import { useSearchParams } from "next/navigation";
 import axios from "@/shared/axios";
 import { useQuery } from "@tanstack/react-query";
 import Article from "./Article";
+import ArticleLoad from "./Article.load";
 
 type HomeResponse = {
   image: string;
@@ -25,6 +26,16 @@ export default function HomeArticles() {
     queryFn: () => axios.get<HomeResponse[]>("/"),
   });
 
+  if (isPending)
+    return (
+      <>
+        <ArticleLoad />
+        <ArticleLoad />
+        <ArticleLoad />
+      </>
+    );
+
+    
   return (
     !isPending &&
     posts?.data
