@@ -50,7 +50,7 @@ export default function Article({ params }: { params: { id: string } }) {
 
   return (
     <div className="m-5 gap-5 flex flex-row-reverse">
-      <aside className="flex flex-col gap-7">
+      <aside className="hidden md:flex flex-col gap-7">
         <Recommendations />
         <Search />
         <Contributors />
@@ -65,7 +65,7 @@ export default function Article({ params }: { params: { id: string } }) {
             dangerouslySetInnerHTML={{ __html: post?.data.post.content! }}
           />
 
-          <div className="flex items-center justify-between">
+          <div className="flex xl:flex-row flex-col gap-6 items-center justify-between">
             <div>
               <p className="font-bold">
                 Por: {post?.data.author.name} -{" "}
