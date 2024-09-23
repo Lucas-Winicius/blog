@@ -3,9 +3,9 @@ import { UserRoundX } from "lucide-react";
 
 export default function ProfileError() {
   return (
-    <div className="flex flex-row gap-5 m-5">
-      <div className="flex flex-col gap-4 items-center space-x-4 h-screen bg-slate-50 py-9 px-7 rounded-md min-w-80 max-w-96">
-        <div className="p-8 rounded-full ">
+    <div className="flex md:flex-row flex-col md:items-start items-center gap-5 m-5 h-screen md:h-fit">
+      <div className="flex flex-col gap-4 items-center space-x-4 md:h-screen bg-slate-50 py-9 px-7 rounded-md w-full min-w-80 md:max-w-96">
+        <div className="md:block hidden p-3 rounded-full">
           <UserRoundX size={150} strokeWidth={1} color="red" />
         </div>
         <div className="flex flex-col items-center gap-3 text-center">
